@@ -30,6 +30,7 @@ guessBtn.addEventListener('click', function() {
 // initialization function sets all state variables for a new game. 
 init();
 function init(){
+    titleEl.className = '';
     messageEl.className = '';
     //this is a handy trick to remove all appended children from an element.
     guessesEl.innerText = ' '; 
@@ -38,16 +39,18 @@ function init(){
     guessList = [];
     isWinner = false;
     secretNum = Math.floor(Math.random()*100) + 1;
+    render()
 }
 
 function checkGuess(guess){
+    guessInput.value = '';
     if (guess < 1 || guess > 100){
         messageEl.innerText = "Whoops, please try a number between 1 & 100"
     } else if (guess === secretNum){
         //winScenario;
         messageEl.className = 'winner'; //classname refers to the CSS document - this gets weird with multiple class names - you have to use a different method.
         isWinner = true;
-        titleEl.className = 'animate__animated animate__bounce';
+        titleEl.className = 'animated bounce';
         confetti.start(1500);
         if (guessList.length === 0) {
             messageEl.innerText = `Congratulations!  You found the number in ${guessList.length +1} guess!`
